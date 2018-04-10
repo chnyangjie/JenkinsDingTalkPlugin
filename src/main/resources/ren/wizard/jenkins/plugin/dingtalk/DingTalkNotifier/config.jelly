@@ -3,4 +3,9 @@
     <f:entry title="${%AccessToken}" field="accessToken">
         <f:textbox />
     </f:entry>
+    <f:advanced>
+        <f:entry title="${%NotifyPeople}" field="notifyPeople">
+            <f:textbox />
+        </f:entry>
+    </f:advanced>
 </j:jelly>

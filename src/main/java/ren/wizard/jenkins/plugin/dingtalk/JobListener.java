@@ -10,6 +10,7 @@ import ren.wizard.dingtalkclient.message.MarkdownMessage;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -46,6 +47,7 @@ public class JobListener extends RunListener<AbstractBuild> {
     private void sendMessage(DingTalkNotifier dingTalkNotifier, MarkdownMessage.MarkdownMessageBuilder markdownMessageBuilder) {
         try {
             dingTalkClient.sendMessage(dingTalkNotifier.getAccessToken(), markdownMessageBuilder.build());
+            markdownMessageBuilder.atMobiles(Arrays.asList(dingTalkNotifier.getNotifyPeopleList()));
             logger.info("send ding talk message success");
         } catch (IOException e) {
             logger.warning("send ding talk message failed");
@@ -66,7 +68,7 @@ public class JobListener extends RunListener<AbstractBuild> {
                 .title(String.format("%s's #%d build %s", abstractBuild.getProject().getDisplayName(), abstractBuild.getNumber(), "START"))
                 .item(MarkdownMessage.getHeaderText(1, String.format("%s's #%d build %s", abstractBuild.getProject().getDisplayName(), abstractBuild.getNumber(), "START")))
         ;
-
+        markdownMessageBuilder.atMobiles(Arrays.asList(dingTalkNotifier.getNotifyPeopleList()));
         sendMessage(dingTalkNotifier, markdownMessageBuilder);
     }
 
